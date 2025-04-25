@@ -74,7 +74,9 @@
 		"//4a": "*********************************************************************",
 		"//4b": "************************ TARGETED UNIT TESTS ************************",
 		"//4c": "*********************************************************************",
-		"test:provider": "pnpm test:watch store/PopUpProvider"
+		"test:hooks": "pnpm test:watch hooks/*",
+		"test:store": "pnpm test:watch store/*",
+		"test:utils": "pnpm test:watch utils.test.ts"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
