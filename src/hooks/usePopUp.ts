@@ -38,13 +38,13 @@ export const usePopUp = (): UsePopUpReturnType => {
 		/** PopUp single instance React Context. */
 		get instance()
 		{
-            if ( ! instance ) {
-                throw new Error(
+			if ( ! instance ) {
+				throw new Error(
 					'PopUpInstanceContext is not defined. This may be happen if you try to access instance context outside the PopUp.'
 				)
-            }
-            return instance
-        },
+			}
+			return instance
+		},
 	}
 
 	return result

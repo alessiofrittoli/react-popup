@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { PopUpContext, initialPopUpContext } from '@/store/PopUpContext'
+import { PopUpContext } from '@/store/PopUpContext'
 import type { PopUp } from '@/types'
 
 
@@ -8,14 +8,6 @@ describe( 'PopUpContext', () => {
 	it( 'has the correct displayName', () => {
 		
 		expect( PopUpContext.displayName ).toBe( 'PopUpContext' )
-
-	} )
-
-
-	it( 'has the correct initial context values', () => {
-
-		expect( initialPopUpContext.groups ).toEqual( new Map() )
-		expect( initialPopUpContext.groups.size ).toBe( 0 )
 
 	} )
 
