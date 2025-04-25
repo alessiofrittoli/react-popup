@@ -100,6 +100,8 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 					: ( isReactNode( PopUpComponent ) ? PopUpComponent : null )
 			)
 
+			if ( ! PopUpNode ) return popupId
+
 			const ProxyedPopUpNode = (
 				<PopUpInstanceContext.Provider value={ {
 					popupId,
