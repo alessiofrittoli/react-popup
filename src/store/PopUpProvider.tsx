@@ -5,7 +5,7 @@ import { randomUUID } from '@alessiofrittoli/math-utils'
 import { getTypedMap } from '@alessiofrittoli/web-utils'
 import { isComponentType, isReactNode } from '@alessiofrittoli/react-api'
 
-import { PopUpContext, initialPopUpContext } from './PopUpContext'
+import { PopUpContext } from './PopUpContext'
 import { PopUpInstanceContext } from './PopUpInstanceContext'
 import { PopUp } from '@/types'
 import { isPopUpType } from '@/utils'
@@ -18,7 +18,7 @@ import { isPopUpType } from '@/utils'
  */
 export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } ) => {
 
-	const [ groups, setGroups ] = useState( initialPopUpContext.groups )
+	const [ groups, setGroups ] = useState( getTypedMap<PopUp.GroupsMap>() )
 
 
 	const closePopUp = useCallback<PopUp.CloseHandler>( popupIdOrType => {
@@ -28,11 +28,11 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 			 * Reset PopUp Map to its initial value.
 			 * 
 			 */
-			return setGroups( initialPopUpContext.groups )
+			return setGroups( getTypedMap() )
 		}
 
 		setGroups( map => (
-			getTypedMap<PopUp.GroupsMap>(
+			getTypedMap(
 				Array.from( map.entries() )
 					.map( ( [ type, popupMap ] ) => {
 						

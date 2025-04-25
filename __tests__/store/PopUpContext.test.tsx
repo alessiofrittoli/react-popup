@@ -5,25 +5,24 @@ import type { PopUp } from '@/types'
 
 describe( 'PopUpContext', () => {
 
-	it( 'should have the correct displayName', () => {
+	it( 'has the correct displayName', () => {
 		
 		expect( PopUpContext.displayName ).toBe( 'PopUpContext' )
 
 	} )
 
 
-	it( 'should have the correct initial context values', () => {
+	it( 'has the correct initial context values', () => {
 
+		expect( initialPopUpContext.groups ).toEqual( new Map() )
 		expect( initialPopUpContext.groups.size ).toBe( 0 )
-		expect( typeof initialPopUpContext.openPopUp ).toBe( 'function' )
-		expect( typeof initialPopUpContext.closePopUp ).toBe( 'function' )
 
 	} )
 
 
-	it( 'should provide the initial context values', () => {
+	it( 'initialises as undefined outside the PopUpContext.Provider', () => {
 
-		let contextValue: PopUp.Ctx
+		let contextValue: PopUp.Ctx | undefined
 
 		render(
 			<PopUpContext.Consumer>
@@ -34,9 +33,7 @@ describe( 'PopUpContext', () => {
 			</PopUpContext.Consumer>
 		)
 		
-		expect( contextValue! ).toEqual( initialPopUpContext )
-		expect( contextValue!.openPopUp( { PopUp: <></> } ) ).toBe( '' )
-		expect( contextValue!.closePopUp() ).toBeUndefined()
+		expect( contextValue ).toBeUndefined()
 
 	} )
 

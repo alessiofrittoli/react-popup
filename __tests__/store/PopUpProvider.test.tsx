@@ -19,7 +19,7 @@ describe( '<PopUpProvider />', () => {
 			<PopUpProvider>
 				<PopUpContext.Consumer>
 					{ value => {
-						contextValue = value
+						contextValue = value!
 						return <PopUpRenderer />
 					} }
 				</PopUpContext.Consumer>

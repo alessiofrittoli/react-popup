@@ -1,28 +1,20 @@
 import { render } from '@testing-library/react'
-import { PopUpInstanceContext, initialPopUpInstanceContext } from '@/store/PopUpInstanceContext'
+import { PopUpInstanceContext } from '@/store/PopUpInstanceContext'
 import type { PopUp } from '@/types'
 
 
 describe( 'PopUpInstanceContext', () => {
 
-	it( 'should have the correct displayName', () => {
+	it( 'has the correct displayName', () => {
 		
 		expect( PopUpInstanceContext.displayName ).toBe( 'PopUpInstanceContext' )
 
 	} )
 
-	
-	it( 'should have the correct initial context values', () => {
 
-		expect( typeof initialPopUpInstanceContext.popupId ).toBe( 'string' )
-		expect( typeof initialPopUpInstanceContext.closePopUp ).toBe( 'function' )
+	it( 'initialises as undefined outside the PopUpInstanceContext.Provider', () => {
 
-	} )
-
-
-	it( 'should provide the initial context values', () => {
-
-		let contextValue: PopUp.InstanceCtx
+		let contextValue: PopUp.InstanceCtx | undefined
 
 		render(
 			<PopUpInstanceContext.Consumer>
@@ -33,9 +25,7 @@ describe( 'PopUpInstanceContext', () => {
 			</PopUpInstanceContext.Consumer>
 		)
 		
-		expect( contextValue! ).toEqual( initialPopUpInstanceContext )
-		expect( contextValue!.popupId ).toBe( '' )
-		expect( contextValue!.closePopUp() ).toBeUndefined()
+		expect( contextValue ).toBeUndefined()
 
 	} )
 

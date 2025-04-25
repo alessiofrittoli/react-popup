@@ -3,17 +3,8 @@ import type { PopUp } from '@/types'
 
 
 /**
- * The initial PopUp single instance React Context API.
- * 
- */
-export const initialPopUpInstanceContext: PopUp.InstanceCtx = {
-	popupId		: '',
-	closePopUp	: () => {},
-}
-
-/**
  * The PopUp single instance React Context API.
  * 
  */
-export const PopUpInstanceContext	= createContext<PopUp.InstanceCtx>( initialPopUpInstanceContext )
+export const PopUpInstanceContext	= createContext<PopUp.InstanceCtx | undefined>( undefined )
 PopUpInstanceContext.displayName	= 'PopUpInstanceContext'
