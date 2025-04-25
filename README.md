@@ -22,6 +22,7 @@
 ### Table of Contents
 
 - [Getting started](#getting-started)
+- [API Reference](#api-reference)
 - [Development](#development)
   - [Install depenendencies](#install-depenendencies)
   - [Build the source code](#build-the-source-code)
@@ -46,6 +47,12 @@ or using `pnpm`
 ```bash
 pnpm i @alessiofrittoli/react-popup
 ```
+
+---
+
+### API Reference
+
+⚠️ Docs coming soon
 
 ---
 
