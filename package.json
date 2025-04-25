@@ -1,7 +1,7 @@
 {
-	"name": "@alessiofrittoli/node-module-starter",
-	"version": "1.8.0",
-	"description": "Starter repository for developing node_modules",
+	"name": "@alessiofrittoli/react-popup",
+	"version": "0.1.0",
+	"description": "TypeScript React PopUp library",
 	"author": {
 		"name": "Alessio Frittoli",
 		"email": "info@alessiofrittoli.it",
@@ -15,18 +15,18 @@
 		}
 	],
 	"keywords": [
-		"nodejs",
-		"npm",
-		"node_modules"
+		"react",
+		"popups",
+		"popup-provider"
 	],
-	"homepage": "https://github.com/alessiofrittoli/node-module-starter#readme",
+	"homepage": "https://github.com/alessiofrittoli/react-popup#readme",
 	"bugs": {
-		"url": "https://github.com/alessiofrittoli/node-module-starter/issues",
+		"url": "https://github.com/alessiofrittoli/react-popup/issues",
 		"email": "info@alessiofrittoli.it"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/alessiofrittoli/node-module-starter.git"
+		"url": "git+https://github.com/alessiofrittoli/react-popup.git"
 	},
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
@@ -34,6 +34,21 @@
 	"files": [
 		"dist"
 	],
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.js"
+		},
+		"./client": {
+			"types": "./dist/client.d.ts",
+			"import": "./dist/client.mjs",
+			"require": "./dist/client.js"
+		},
+		"./types": {
+			"types": "./dist/types.d.ts"
+		}
+	},
 	"sideEffects": false,
 	"scripts": {
 		"//1a": "*********************************************************************",
@@ -42,7 +57,7 @@
 		"build": "pnpm lint && pnpm test:ci && tsup",
 		"build:watch": "tsup --watch",
 		"lint": "eslint",
-		"release": "node scripts/publish.js --verbose",
+		"release": "node scripts/publish.js --verbose --npm",
 		"//2a": "*********************************************************************",
 		"//2b": "***************************** UNIT TESTS ****************************",
 		"//2c": "*********************************************************************",
@@ -61,28 +76,49 @@
 		"//4c": "*********************************************************************",
 		"test:jest": "pnpm test:watch jest.test.ts"
 	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"@alessiofrittoli/type-utils",
+			"esbuild"
+		]
+	},
 	"devDependencies": {
 		"@alessiofrittoli/node-scripts": "^2.4.0",
-		"@eslint/js": "^9.25.0",
+		"@eslint/compat": "^1.2.8",
+		"@eslint/eslintrc": "^3.3.1",
+		"@eslint/js": "^9.25.1",
 		"@jest/globals": "^29.7.0",
 		"@types/jest": "^29.5.14",
 		"@types/node": "^22.14.1",
+		"@types/react": "^19.1.2",
+		"@types/react-dom": "^19.1.2",
 		"concurrently": "^9.1.2",
 		"dotenv": "^16.5.0",
-		"eslint": "^9.25.0",
+		"eslint": "^9.25.1",
+		"eslint-plugin-react": "^7.37.5",
+		"eslint-plugin-react-hooks": "^5.2.0",
+		"eslint-plugin-react-server-components": "^1.2.0",
 		"globals": "^16.0.0",
 		"http-server": "^14.1.1",
 		"jest": "^29.7.0",
 		"jest-environment-jsdom": "^29.7.0",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
 		"ts-jest": "^29.3.2",
 		"ts-node": "^10.9.2",
 		"tsup": "^8.4.0",
 		"typescript": "^5.8.3",
-		"typescript-eslint": "^8.30.1"
+		"typescript-eslint": "^8.31.0"
 	},
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"esbuild"
-		]
+	"dependencies": {
+		"@alessiofrittoli/math-utils": "^1.12.0",
+		"@alessiofrittoli/react-api": "^0.1.0",
+		"@alessiofrittoli/web-utils": "^1.9.1"
+	},
+	"peerDependencies": {
+		"@types/react": "^19.1.2",
+		"@types/react-dom": "^19.1.2",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0"
 	}
 }

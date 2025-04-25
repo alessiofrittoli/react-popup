@@ -1,25 +1,23 @@
-# Node Module Starter 🛠️
+# React PopUp 💬
 
 [![NPM Latest Version][version-badge]][npm-url] [![Coverage Status][coverage-badge]][coverage-url] [![Socket Status][socket-badge]][socket-url] [![NPM Monthly Downloads][downloads-badge]][npm-url] [![Dependencies][deps-badge]][deps-url]
 
-[![GitHub Sponsor][sponsor-badge]][sponsor-url] [![GitHub Sponsor][sponsor-count-badge]][sponsor-count-url]
+[![GitHub Sponsor][sponsor-badge]][sponsor-url]
 
-[version-badge]: https://img.shields.io/npm/v/%40alessiofrittoli%2Fnode-module-starter
-[npm-url]: https://npmjs.org/package/%40alessiofrittoli%2Fnode-module-starter
-[coverage-badge]: https://coveralls.io/repos/github/alessiofrittoli/node-module-starter/badge.svg
-[coverage-url]: https://coveralls.io/github/alessiofrittoli/node-module-starter
-[socket-badge]: https://socket.dev/api/badge/npm/package/@alessiofrittoli/node-module-starter
-[socket-url]: https://socket.dev/npm/package/@alessiofrittoli/node-module-starter/overview
-[downloads-badge]: https://img.shields.io/npm/dm/%40alessiofrittoli%2Fnode-module-starter.svg
-[deps-badge]: https://img.shields.io/librariesio/release/npm/%40alessiofrittoli%2Fnode-module-starter
-[deps-url]: https://libraries.io/npm/%40alessiofrittoli%2Fnode-module-starter
+[version-badge]: https://img.shields.io/npm/v/%40alessiofrittoli%2Freact-popup
+[npm-url]: https://npmjs.org/package/%40alessiofrittoli%2Freact-popup
+[coverage-badge]: https://coveralls.io/repos/github/alessiofrittoli/react-popup/badge.svg
+[coverage-url]: https://coveralls.io/github/alessiofrittoli/react-popup
+[socket-badge]: https://socket.dev/api/badge/npm/package/@alessiofrittoli/react-popup
+[socket-url]: https://socket.dev/npm/package/@alessiofrittoli/react-popup/overview
+[downloads-badge]: https://img.shields.io/npm/dm/%40alessiofrittoli%2Freact-popup.svg
+[deps-badge]: https://img.shields.io/librariesio/release/npm/%40alessiofrittoli%2Freact-popup
+[deps-url]: https://libraries.io/npm/%40alessiofrittoli%2Freact-popup
 
 [sponsor-badge]: https://img.shields.io/static/v1?label=Fund%20this%20package&message=%E2%9D%A4&logo=GitHub&color=%23DB61A2
 [sponsor-url]: https://github.com/sponsors/alessiofrittoli
-[sponsor-count-badge]: https://img.shields.io/github/sponsors/alessiofrittoli?label=Sponsor&logo=GitHub
-[sponsor-count-url]: https://github.com/sponsors/alessiofrittoli
 
-## Starter repository for developing node_modules
+## TypeScript React PopUp library
 
 ### Table of Contents
 
@@ -35,36 +33,18 @@
 
 ---
 
-### Getting started (delete once cloned in your project)
+### Getting started
 
-Run the following command to start using `node-module-starter` for your projects:
-
-```bash
-git clone git@github.com:alessiofrittoli/node-module-starter.git && git remote remove origin
-```
-
-install dependencies
+Run the following command to start using `react-popup` in your projects:
 
 ```bash
-pnpm i
-```
-
-Read the [Creating a repository from a template - GitHub Docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) for more in-detail informations about creating a new Repository from a template using GitHub web interface.
-
----
-
-### Getting started (customize based on your project needs)
-
-Run the following command to start using `{package_name}` in your projects:
-
-```bash
-npm i {package_name}
+npm i @alessiofrittoli/react-popup
 ```
 
 or using `pnpm`
 
 ```bash
-pnpm i {package_name}
+pnpm i @alessiofrittoli/react-popup
 ```
 
 ---
