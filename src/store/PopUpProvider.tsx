@@ -6,7 +6,7 @@ import { getTypedMap } from '@alessiofrittoli/web-utils'
 import { isComponentType, isReactNode } from '@alessiofrittoli/react-api'
 
 import { PopUpContext, initialPopUpContext } from './PopUpContext'
-import { PopUpEntryContext } from './PopUpEntryContext'
+import { PopUpInstanceContext } from './PopUpInstanceContext'
 import { PopUp } from '@/types'
 import { isPopUpType } from '@/utils'
 
@@ -101,10 +101,10 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 			)
 
 			const ProxyedPopUpNode = (
-				<PopUpEntryContext.Provider value={ {
+				<PopUpInstanceContext.Provider value={ {
 					popupId,
 					closePopUp: () => closePopUp( popupId )
-				} }>{ PopUpNode }</PopUpEntryContext.Provider>
+				} }>{ PopUpNode }</PopUpInstanceContext.Provider>
 			)
 			
 			setGroups( map => {

@@ -89,10 +89,10 @@ export namespace PopUp
 	
 
 	/**
-	 * The PopUp single entry Proxied React Context API.
+	 * The PopUp single instance React Context API.
 	 * 
 	 */
-	export interface EntryCtx
+	export interface InstanceCtx
 	{
 		/** The PopUp Id. */
 		popupId: PopUp.Id
