@@ -53,10 +53,11 @@
 	"sideEffects": false,
 	"scripts": {
 		"//1a": "*********************************************************************",
-		"//1b": "*********************** BUILD - LINT - RELEASE **********************",
+		"//1b": "******************** DEV - BUILD - LINT - RELEASE *******************",
 		"//1c": "*********************************************************************",
-		"build": "pnpm lint && pnpm test:ci && tsup",
-		"build:watch": "tsup --watch",
+		"dev": "NODE_ENV=development tsup --watch",
+		"build:prod": "NODE_ENV=production tsup",
+		"build": "pnpm lint && pnpm test:ci && pnpm build:prod",
 		"lint": "eslint",
 		"release": "node scripts/publish.js --verbose --npm",
 		"//2a": "*********************************************************************",
@@ -86,20 +87,20 @@
 		]
 	},
 	"devDependencies": {
-		"@alessiofrittoli/node-scripts": "^2.4.0",
-		"@eslint/compat": "^1.2.8",
+		"@alessiofrittoli/node-scripts": "^2.5.0",
+		"@eslint/compat": "^1.2.9",
 		"@eslint/eslintrc": "^3.3.1",
-		"@eslint/js": "^9.25.1",
+		"@eslint/js": "^9.26.0",
 		"@jest/globals": "^29.7.0",
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/react": "^16.3.0",
 		"@types/jest": "^29.5.14",
-		"@types/node": "^22.14.1",
+		"@types/node": "^22.15.3",
 		"@types/react": ">=19",
 		"@types/react-dom": ">=19",
 		"concurrently": "^9.1.2",
 		"dotenv": "^16.5.0",
-		"eslint": "^9.25.1",
+		"eslint": "^9.26.0",
 		"eslint-plugin-react": "^7.37.5",
 		"eslint-plugin-react-hooks": "^5.2.0",
 		"eslint-plugin-react-server-components": "^1.2.0",
@@ -113,12 +114,12 @@
 		"ts-node": "^10.9.2",
 		"tsup": "^8.4.0",
 		"typescript": "^5.8.3",
-		"typescript-eslint": "^8.31.0"
+		"typescript-eslint": "^8.31.1"
 	},
 	"dependencies": {
-		"@alessiofrittoli/math-utils": "^1.12.0",
-		"@alessiofrittoli/react-api": "^0.1.0",
-		"@alessiofrittoli/web-utils": "^1.9.1"
+		"@alessiofrittoli/math-utils": "^1.13.0",
+		"@alessiofrittoli/react-api": "^0.3.0",
+		"@alessiofrittoli/web-utils": "^1.10.0"
 	},
 	"peerDependencies": {
 		"@types/react": ">=19",
