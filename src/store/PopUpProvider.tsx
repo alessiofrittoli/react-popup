@@ -86,26 +86,25 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 	const openPopUp = useCallback<PopUp.OpenHandler>(
 		( {
 			PopUp: PopUpComponent,
+			id = randomUUID(),
 			props,
 			single,
 			singleType,
 			type = PopUp.Type.UNKNOWN,
 		} ) => {
 
-			const popupId = randomUUID()
-
 			const PopUpNode = (
 				isComponentType<{ id: PopUp.Id }>( PopUpComponent )
-					? <PopUpComponent { ...props } id={ popupId }/>
+					? <PopUpComponent { ...props } id={ id }/>
 					: ( isReactNode( PopUpComponent ) ? PopUpComponent : null )
 			)
 
-			if ( ! PopUpNode ) return popupId
+			if ( ! PopUpNode ) return id
 
 			const ProxyedPopUpNode = (
 				<PopUpInstanceContext.Provider value={ {
-					popupId,
-					closePopUp: () => closePopUp( popupId )
+					popupId: id,
+					closePopUp: () => closePopUp( id )
 				} }>{ PopUpNode }</PopUpInstanceContext.Provider>
 			)
 			
@@ -114,7 +113,7 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 				if ( single ) {
 					return (
 						getTypedMap<PopUp.GroupsMap>()
-							.set( type, getTypedMap<PopUp.Map>().set( popupId, ProxyedPopUpNode ) )
+							.set( type, getTypedMap<PopUp.Map>().set( id, ProxyedPopUpNode ) )
 					)
 				}
 				
@@ -123,7 +122,7 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 						getTypedMap<PopUp.GroupsMap>( map )
 							.set( type,
 								getTypedMap<PopUp.Map>()
-									.set( popupId, ProxyedPopUpNode )
+									.set( id, ProxyedPopUpNode )
 							)
 					)
 				}
@@ -132,13 +131,13 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 					getTypedMap<PopUp.GroupsMap>( map )
 						.set( type,
 							( map.get( type ) || getTypedMap<PopUp.Map>() )
-								.set( popupId, ProxyedPopUpNode )
+								.set( id, ProxyedPopUpNode )
 						)
 				)
 
 			} )
 
-			return popupId
+			return id
 
 		}, [ closePopUp ]
 	)
