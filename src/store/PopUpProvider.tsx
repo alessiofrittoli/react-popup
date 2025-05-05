@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { randomUUID } from '@alessiofrittoli/math-utils'
 import { getTypedMap } from '@alessiofrittoli/web-utils'
 import { isComponentType, isReactNode } from '@alessiofrittoli/react-api'
@@ -163,9 +163,9 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 	}, [ groups, closePopUp ] )
 
 
-	const context: PopUp.Ctx =  useMemo( () => ( {
+	const context: PopUp.Ctx = {
 		groups, openPopUp, closePopUp,
-	} ), [ groups, openPopUp, closePopUp ] )
+	}
 
 	
 	return (
