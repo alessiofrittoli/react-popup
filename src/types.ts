@@ -32,6 +32,8 @@ export namespace PopUp
 	{
 		/** The PopUp Component. Could be a `React.ReactNode` or a `React.ComponentType`. */
 		PopUp: PopUp.Component<P>
+		/** A custom PopUp Id. If none is provided, a random UUID is generated. */
+		id?: PopUp.Id
 		/** Custom `props` passed to `PopUp` if given `PopUp` is a `React.ComponentType` */
 		props?: Omit<P, 'id'>
 		/** If set to `true`, other popups will be closed regardless of `PopUp.Type`. Default: `false`. */
