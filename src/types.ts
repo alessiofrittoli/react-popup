@@ -62,6 +62,15 @@ export namespace PopUp
 	 * @param popupIdOrType (Optional) The PopUp.Id or PopUp.Type to close.
 	 */
 	export type CloseHandler = ( popupId?: PopUp.Id | PopUp.Type ) => void
+
+
+	/**
+	 * Check if a PopUp with the given `id` and eventually with the given `type` is open.
+	 * 
+	 * @param id	The PopUp.Id to look for.
+	 * @param type	(Optional) The PopUp.Type. If given, the PopUp is looked for the given `type` only.
+	 */
+	export type IsPopUpOpenHandler = ( id: PopUp.Id, type?: PopUp.Type ) => boolean
 	
 
 	/**
@@ -87,6 +96,13 @@ export namespace PopUp
 		 * @param popupIdOrType (Optional) The PopUp.Id or PopUp.Type to close.
 		 */
 		closePopUp: CloseHandler
+		/**
+		 * Check if a PopUp with the given `id` and eventually with the given `type` is open.
+		 * 
+		 * @param id	The PopUp.Id to look for.
+		 * @param type	(Optional) The PopUp.Type. If given, the PopUp is looked for the given `type` only.
+		 */
+		isPopUpOpen: IsPopUpOpenHandler
 	}
 	
 

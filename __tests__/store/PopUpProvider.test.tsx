@@ -401,4 +401,49 @@ describe( '<PopUpProvider />', () => {
 
 	} )
 
+
+	describe( 'isPopUpOpen', () => {
+
+		it( 'checks if there is an opened PopUp with the given id', () => {
+
+			act( () => {
+				contextValue.openPopUp( {
+					id		: 'custom-popup-id',
+					PopUp	: <div>Test PopUp</div>,
+				} )
+			} )
+
+			expect(
+				contextValue.isPopUpOpen( 'custom-popup-id' )
+			).toBe( true )
+			
+			expect(
+				contextValue.isPopUpOpen( 'a-random-popup-id' )
+			).toBe( false )
+
+		} )
+		
+		
+		it( 'checks if there is an opened PopUp with the given id and the given type', () => {
+
+			act( () => {
+				contextValue.openPopUp( {
+					id		: 'custom-popup-id',
+					PopUp	: <div>Test PopUp</div>,
+					type	: PopUp.Type.MODAL,
+				} )
+			} )
+
+			expect(
+				contextValue.isPopUpOpen( 'custom-popup-id', PopUp.Type.MODAL )
+			).toBe( true )
+			
+			expect(
+				contextValue.isPopUpOpen( 'custom-popup-id', PopUp.Type.TOAST )
+			).toBe( false )
+
+		} )
+
+	} )
+
 } )
