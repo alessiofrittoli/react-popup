@@ -142,6 +142,18 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 		}, [ closePopUp ]
 	)
 
+
+	const isPopUpOpen = useCallback<PopUp.IsPopUpOpenHandler>( ( id, type ) => (
+		(
+			! type
+				? groups.entries()
+				: groups.entries().filter( ( [ popUpType ] ) => type === popUpType )
+		).some( ( [, group ] ) => (
+			!! group.entries()
+				.find( ( [ popUpId ] ) => id === popUpId )
+		) )
+	), [ groups ] )
+
 	
 	/** Close the latest popup when user hit `Escape` key. */
 	useEffect( () => {
@@ -163,7 +175,7 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 
 
 	const context: PopUp.Ctx = {
-		groups, openPopUp, closePopUp,
+		groups, openPopUp, closePopUp, isPopUpOpen,
 	}
 
 	
