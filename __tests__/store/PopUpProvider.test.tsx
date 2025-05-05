@@ -70,6 +70,23 @@ describe( '<PopUpProvider />', () => {
 		} )
 
 
+		it( 'accepts a custom PopUp.Id', () => {
+
+			act( () => {
+				contextValue.openPopUp( {
+					id		: 'custom-popup-id',
+					PopUp	: <div>Test PopUp</div>,
+				} )
+			} )
+
+			expect(
+				contextValue.groups.get( PopUp.Type.UNKNOWN )
+					?.has( 'custom-popup-id' )
+			).toBe( true )
+
+		} )
+
+
 		it( 'passes the PopUp.Id to the given PopUp React Element', async () => {
 
 			interface PopUpComponentProps
@@ -84,13 +101,18 @@ describe( '<PopUpProvider />', () => {
 			let popUpId: PopUp.Id | undefined = undefined
 
 			act( () => {
+				contextValue.openPopUp( {
+					id		: 'custom-popup-id',
+					PopUp	: PopUpComponent,
+				} )
 				popUpId = contextValue.openPopUp( {
 					PopUp: PopUpComponent
 				} )
 			} )
 
-			expect( contextValue.groups.get( PopUp.Type.UNKNOWN )?.size ).toBe( 1 )
+			expect( contextValue.groups.get( PopUp.Type.UNKNOWN )?.size ).toBe( 2 )
 			expect( await screen.findByText( `PopUp Id: ${ popUpId }` ) ).toBeInTheDocument()
+			expect( await screen.findByText( `PopUp Id: custom-popup-id` ) ).toBeInTheDocument()
 
 		} )
 
