@@ -144,12 +144,12 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 
 
 	const isPopUpOpen = useCallback<PopUp.IsPopUpOpenHandler>( ( id, type ) => (
-		(
+		Array.from(
 			! type
 				? groups.entries()
 				: groups.entries().filter( ( [ popUpType ] ) => type === popUpType )
 		).some( ( [, group ] ) => (
-			!! group.entries()
+			!! Array.from( group.entries() )
 				.find( ( [ popUpId ] ) => id === popUpId )
 		) )
 	), [ groups ] )
