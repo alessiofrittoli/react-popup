@@ -8,7 +8,8 @@ import { isComponentType, isReactNode } from '@alessiofrittoli/react-api'
 import { PopUpContext } from '@/internals/context'
 import { PopUpInstanceContext } from '@/internals/instance-context'
 import { PopUp } from '@/lib/types'
-import { isPopUpType } from '@/lib/utils'
+import { checkIfPopUpIsOpen, checkIsPopUpType } from '@/lib/utils'
+
 
 /**
  * The PopUp React Context Provider.
@@ -19,7 +20,6 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 
 	const [ groups, setGroups ] = useState( getTypedMap<PopUp.GroupsMap>() )
 
-
 	const closePopUp = useCallback<PopUp.CloseHandler>( popupIdOrType => {
 
 		if ( ! popupIdOrType ) {
@@ -27,57 +27,78 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 			 * Reset PopUp Map to its initial value.
 			 * 
 			 */
-			return setGroups( getTypedMap() )
+			return setGroups( groups => groups.size <= 0 ? groups : getTypedMap() )
 		}
 
-		setGroups( map => (
-			getTypedMap(
-				Array.from( map.entries() )
-					.map( ( [ type, popupMap ] ) => {
-						
+		setGroups( groups => {
+
+			const isPopUpType = checkIsPopUpType( popupIdOrType )
+
+			/**
+			 * Do not alter state if user wants to close a specific popup with the given PopUp.Id and it is not open.
+			 * 
+			 */
+			if ( ! isPopUpType && ! checkIfPopUpIsOpen( groups, popupIdOrType ) ) {
+				return groups
+			}
+
+			/**
+			 * Do not alter state if user wants to close all popups of given PopUp.Type and that group is empty.
+			 * 
+			 */
+			if ( isPopUpType && ! groups.get( popupIdOrType )?.size ) {
+				return groups
+			}
+
+			return (
+				getTypedMap(
+					Array.from( groups.entries() )
+						.map( ( [ type, popups ] ) => {
+							
+							/**
+							 * Remove the entire PopUp.Type group.
+							 * 
+							 */
+							if ( isPopUpType && popupIdOrType === type ) {
+								return null
+							}
+
+							/**
+							 * Do not alter state if trying to close a popup that is not even in the group.
+							 * 
+							 */
+							if ( ! popups.has( popupIdOrType ) ) {
+								return [ type, popups ]
+							}
+
+							/**
+							 * Remove the PopUp from the group.
+							 *
+							 */
+							popups.delete( popupIdOrType )
+
+							/**
+							 * Ensure no empty Map of popups is added to a PopUp.Type group.
+							 * 
+							 */
+							if ( popups.size <= 0 ) {
+								return null
+							}
+
+							/**
+							 * Update the state with the requested popup removed from the PopUp.Type group.
+							 * 
+							 */
+							return [ type, getTypedMap<PopUp.Map>( popups ) ]
+						} )
 						/**
-						 * Remove the entire PopUp.Type group.
+						 * Filter nullish returned value to ensure no empty Map is kept.
 						 * 
 						 */
-						if ( isPopUpType( popupIdOrType ) && popupIdOrType === type ) {
-							return null
-						}
-
-						/**
-						 * Do not alter state if trying to close a popup that is not even in the group.
-						 * 
-						 */
-						if ( ! popupMap.has( popupIdOrType ) ) {
-							return [ type, popupMap ]
-						}
-
-						/**
-						 * Remove the PopUp from the group.
-						 *
-						 */
-						popupMap.delete( popupIdOrType )
-
-						/**
-						 * Ensure no empty Map of popups is added to a PopUp.Type group.
-						 * 
-						 */
-						if ( popupMap.size <= 0 ) {
-							return null
-						}
-
-						/**
-						 * Update the state with the requested popup removed from the PopUp.Type group.
-						 * 
-						 */
-						return [ type, getTypedMap<PopUp.Map>( popupMap ) ]
-					} )
-					/**
-					 * Filter nullish returned value to ensure no empty Map is kept.
-					 * 
-					 */
-					.filter( Boolean ) as [ PopUp.Type, PopUp.GroupMap ][]
+						.filter( Boolean ) as [ PopUp.Type, PopUp.GroupMap ][]
+				)
 			)
-		) )
+		} )
 
 	}, [] )
 
@@ -90,7 +111,7 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 			single,
 			singleType,
 			type = PopUp.Type.UNKNOWN,
-		} ) => {
+		} ) => {			
 
 			const PopUpNode = (
 				isComponentType<{ id: PopUp.Id }>( PopUpComponent )
@@ -107,7 +128,7 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 				} }>{ PopUpNode }</PopUpInstanceContext.Provider>
 			)
 			
-			setGroups( map => {
+			setGroups( groups => {
 
 				if ( single ) {
 					return (
@@ -118,7 +139,7 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 				
 				if ( singleType ) {
 					return (
-						getTypedMap<PopUp.GroupsMap>( map )
+						getTypedMap<PopUp.GroupsMap>( groups )
 							.set( type,
 								getTypedMap<PopUp.Map>()
 									.set( id, ProxyedPopUpNode )
@@ -126,10 +147,16 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 					)
 				}
 
+				/**
+				 * Do not alter state if PopUp is already open.
+				 * 
+				 */
+				if ( checkIfPopUpIsOpen( groups, id, type ) ) return groups
+
 				return (
-					getTypedMap<PopUp.GroupsMap>( map )
+					getTypedMap<PopUp.GroupsMap>( groups )
 						.set( type,
-							( map.get( type ) || getTypedMap<PopUp.Map>() )
+							( groups.get( type ) || getTypedMap<PopUp.Map>() )
 								.set( id, ProxyedPopUpNode )
 						)
 				)
@@ -143,21 +170,14 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 
 
 	const isPopUpOpen = useCallback<PopUp.IsPopUpOpenHandler>( ( id, type ) => (
-		(
-			! type
-				? Array.from( groups.entries() )
-				: Array.from( groups.entries() ).filter( ( [ popUpType ] ) => type === popUpType )
-		).some( ( [, group ] ) => (
-			!! Array.from( group.entries() )
-				.find( ( [ popUpId ] ) => id === popUpId )
-		) )
+		checkIfPopUpIsOpen( groups, id, type )
 	), [ groups ] )
 
 	
 	/** Close the latest popup when user hit `Escape` key. */
 	useEffect( () => {
 
-		const escHideHandler = ( event: KeyboardEvent ) => {
+		const escCloseHandler = ( event: KeyboardEvent ) => {
 			if ( event.code !== 'Escape' || event.key !== 'Escape' ) return
 
 			const group = Array.from( groups.values() ).pop()
@@ -166,9 +186,9 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 			closePopUp( Array.from( group.keys() ).pop() )
 		}
 
-		document.addEventListener( 'keydown', escHideHandler )
+		document.addEventListener( 'keydown', escCloseHandler )
 		
-		return () => document.removeEventListener( 'keydown', escHideHandler )
+		return () => document.removeEventListener( 'keydown', escCloseHandler )
 
 	}, [ groups, closePopUp ] )
 
