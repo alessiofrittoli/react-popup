@@ -265,6 +265,38 @@ describe( '<PopUpProvider />', () => {
 
 		} )
 
+
+		it( 'doesn\'t update state if the given PopUp already exists', () => {
+
+			let contextGroups = contextValue.groups
+
+			act( () => {
+				contextValue.openPopUp( {
+					id		: 'uniqueId',
+					PopUp	: () => <div>Test PopUp</div>,
+				} )
+			} )
+
+			// just proof of the next expectation
+			expect( contextGroups ).not.toBe( contextValue.groups )
+
+			contextGroups = contextValue.groups
+
+			act( () => {
+				contextValue.openPopUp( {
+					id		: 'uniqueId',
+					PopUp	: () => <div>Test PopUp</div>,
+				} )
+			} )
+
+			expect( contextGroups ).toBe( contextValue.groups )
+	
+			const defaultGroup = contextValue.groups.get( PopUp.Type.UNKNOWN )
+	
+			expect( defaultGroup?.size ).toBe( 1 )
+
+		} )
+
 	} )
 
 
@@ -397,6 +429,54 @@ describe( '<PopUpProvider />', () => {
 
 			expect( contextValue!.groups.size ).toBe( 0 )
 	
+		} )
+
+
+		it( 'doesn\'t alter state if no PopUp.Id or PopUp.Type is given and there is no grup in the Map', () => {
+
+			let contextGroups = contextValue.groups
+			
+			act( () => {
+				contextValue.closePopUp()
+			} )
+			
+			// just proof of the next expectation
+			expect( contextGroups ).not.toBe( contextValue.groups )
+			
+			contextGroups = contextValue.groups
+
+			act( () => {
+				contextValue.closePopUp()
+			} )
+
+			expect( contextGroups ).toBe( contextValue.groups )
+
+		} )
+
+
+		it( 'doesn\'t alter state if a PopUp.Id is given and there is no PopUp in any group with the given PopUp.Id', () => {
+
+			const contextGroups = contextValue.groups
+
+			act( () => {
+				contextValue.closePopUp( 'unexistingId' )
+			} )
+
+			expect( contextGroups ).toBe( contextValue.groups )
+
+		} )
+
+
+		it( 'doesn\'t alter state if a PopUp.Type is given and there is no group of that type or it is empty', () => {
+
+			const contextGroups = contextValue.groups
+
+			act( () => {
+				contextValue.closePopUp( PopUp.Type.DRAWER )
+			} )
+
+			expect( contextGroups ).toBe( contextValue.groups )
+
 		} )
 
 	} )
