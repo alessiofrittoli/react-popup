@@ -20,7 +20,7 @@ export const checkIsPopUpType = ( value: PopUp.Id | PopUp.Type ): value is PopUp
  * 
  * @returns `true` if there is some PopUp in the given `groups`, `false` otherwise.
  */
-export const checkIfPopUpIsOpen = ( groups: PopUp.TypedGroupsMap, id: PopUp.Id, type?: PopUp.Type ) => (
+export const checkIsPopUpOpen = ( groups: PopUp.TypedGroupsMap, id: PopUp.Id, type?: PopUp.Type ) => (
 	(
 		! type
 			? Array.from( groups.entries() )

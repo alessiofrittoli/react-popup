@@ -8,7 +8,7 @@ import { isComponentType, isReactNode } from '@alessiofrittoli/react-api'
 import { PopUpContext } from '@/internals/context'
 import { PopUpInstanceContext } from '@/internals/instance-context'
 import { PopUp } from '@/lib/types'
-import { checkIfPopUpIsOpen, checkIsPopUpType } from '@/lib/utils'
+import { checkIsPopUpOpen, checkIsPopUpType } from '@/lib/utils'
 
 
 /**
@@ -38,7 +38,7 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 			 * Do not alter state if user wants to close a specific popup with the given PopUp.Id and it is not open.
 			 * 
 			 */
-			if ( ! isPopUpType && ! checkIfPopUpIsOpen( groups, popupIdOrType ) ) {
+			if ( ! isPopUpType && ! checkIsPopUpOpen( groups, popupIdOrType ) ) {
 				return groups
 			}
 
@@ -151,7 +151,7 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 				 * Do not alter state if PopUp is already open.
 				 * 
 				 */
-				if ( checkIfPopUpIsOpen( groups, id, type ) ) return groups
+				if ( checkIsPopUpOpen( groups, id, type ) ) return groups
 
 				return (
 					getTypedMap<PopUp.GroupsMap>( groups )
@@ -170,7 +170,7 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 
 
 	const isPopUpOpen = useCallback<PopUp.IsPopUpOpenHandler>( ( id, type ) => (
-		checkIfPopUpIsOpen( groups, id, type )
+		checkIsPopUpOpen( groups, id, type )
 	), [ groups ] )
 
 	
