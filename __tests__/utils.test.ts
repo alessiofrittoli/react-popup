@@ -1,5 +1,5 @@
-import { isPopUpType } from '@/utils'
-import { PopUp } from '@/types'
+import { isPopUpType } from '@/lib/utils'
+import { PopUp } from '@/lib/types'
 
 describe( 'isPopUpType', () => {
 

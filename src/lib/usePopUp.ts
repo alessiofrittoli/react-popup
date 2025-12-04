@@ -1,7 +1,7 @@
 import { useContext } from 'react'
-import { PopUpContext} from '@/store/PopUpContext'
-import { PopUpInstanceContext } from '@/store/PopUpInstanceContext'
-import type { PopUp } from '@/types'
+import { PopUpContext} from '@/internals/context'
+import { PopUpInstanceContext } from '@/internals/instance-context'
+import type { PopUp } from '@/lib/types'
 
 
 interface UsePopUpReturnType

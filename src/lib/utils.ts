@@ -1,4 +1,4 @@
-import { PopUp } from '@/types'
+import { PopUp } from '@/lib/types'
 
 /**
  * Check if the given `value` is a {@link PopUp.Type} or not.

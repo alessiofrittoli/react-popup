@@ -1,6 +1,6 @@
 import React from 'react'
 import { renderHook } from '@testing-library/react'
-import { usePopUp } from '@/hooks/usePopUp'
+import { usePopUp } from '@/lib/usePopUp'
 
 
 describe( 'usePopUp', () => {

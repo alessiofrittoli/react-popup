@@ -2,12 +2,12 @@ import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import { getTypedMap } from '@alessiofrittoli/web-utils'
 
-import { PopUpRenderer } from '@/components/PopUpRenderer'
-import { usePopUp as use_PopUp } from '@/hooks/usePopUp'
-import { PopUp } from '@/types'
+import { PopUpRenderer } from '@/lib/renderer'
+import { usePopUp as use_PopUp } from '@/lib/usePopUp'
+import { PopUp } from '@/lib/types'
 
 
-jest.mock( '@/hooks/usePopUp' )
+jest.mock( '@/lib/usePopUp' )
 
 const usePopUp = use_PopUp as jest.Mock
 

@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import type { PopUp } from '@/types'
+import type { PopUp } from '@/lib/types'
 
 
 /**
