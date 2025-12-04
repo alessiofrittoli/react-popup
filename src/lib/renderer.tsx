@@ -1,7 +1,7 @@
 'use client'
 
 import { Fragment } from 'react'
-import { usePopUp } from '@/hooks/usePopUp'
+import { usePopUp } from '@/lib/usePopUp'
 
 
 /**

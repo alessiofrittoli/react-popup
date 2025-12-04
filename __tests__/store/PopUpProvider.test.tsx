@@ -2,11 +2,11 @@ import '@testing-library/jest-dom'
 import { useEffect } from 'react'
 import { render, act, fireEvent, screen } from '@testing-library/react'
 
-import { PopUpProvider } from '@/store/PopUpProvider'
-import { PopUpContext } from '@/store/PopUpContext'
-import { PopUpRenderer } from '@/components/PopUpRenderer'
-import { usePopUp } from '@/hooks/usePopUp'
-import { PopUp } from '@/types'
+import { PopUpProvider } from '@/lib/provider'
+import { PopUpContext } from '@/internals/context'
+import { PopUpRenderer } from '@/lib/renderer'
+import { usePopUp } from '@/lib/usePopUp'
+import { PopUp } from '@/lib/types'
 
 
 describe( '<PopUpProvider />', () => {

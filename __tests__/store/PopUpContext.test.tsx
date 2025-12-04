@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
-import { PopUpContext } from '@/store/PopUpContext'
-import type { PopUp } from '@/types'
+import { PopUpContext } from '@/internals/context'
+import type { PopUp } from '@/lib/types'
 
 
 describe( 'PopUpContext', () => {

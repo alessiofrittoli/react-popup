@@ -5,11 +5,10 @@ import { randomUUID } from '@alessiofrittoli/math-utils'
 import { getTypedMap } from '@alessiofrittoli/web-utils'
 import { isComponentType, isReactNode } from '@alessiofrittoli/react-api'
 
-import { PopUpContext } from './PopUpContext'
-import { PopUpInstanceContext } from './PopUpInstanceContext'
-import { PopUp } from '@/types'
-import { isPopUpType } from '@/utils'
-
+import { PopUpContext } from '@/internals/context'
+import { PopUpInstanceContext } from '@/internals/instance-context'
+import { PopUp } from '@/lib/types'
+import { isPopUpType } from '@/lib/utils'
 
 /**
  * The PopUp React Context Provider.
