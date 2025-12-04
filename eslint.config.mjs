@@ -6,6 +6,7 @@ import tseslint from 'typescript-eslint'
 import { FlatCompat } from '@eslint/eslintrc'
 import { fixupConfigRules } from '@eslint/compat'
 
+// Initial file generated with `npm lint -- --init`
 
 const __filename	= fileURLToPath( import.meta.url )
 const __dirname		= dirname( __filename )
@@ -15,18 +16,11 @@ const compat = new FlatCompat( {
 } )
 
 
-
-// Initial file generated with `npm lint -- --init`
-
-/** @type {import('eslint').Linter.Config[]} */
-// @ts-expect-error `languageOptions` property in `tseslint.configs.recommended` result incompatible with `eslint` config types.
-const tseslintReccommended = tseslint.configs.recommended
-
 /** @type {import('eslint').Linter.Config[]} */
 const config = [
 	{ languageOptions: { globals: { ...globals.browser, ...globals.node } } },
 	pluginJs.configs.recommended,
-	...tseslintReccommended,
+	...tseslint.configs.recommended,
 	...fixupConfigRules( compat.extends( 'plugin:react/recommended' ) ),
 	...fixupConfigRules( compat.extends( 'plugin:react-hooks/recommended' ) ),
 	...fixupConfigRules( compat.extends( 'plugin:react-server-components/recommended' ) ),
@@ -41,6 +35,8 @@ const config = [
 	{ ignores: [ 'dist', 'scripts', 'coverage' ] },
 	{ rules: {
 		'@typescript-eslint/no-namespace': 'off',
+		'react-hooks/set-state-in-effect': 'warn',
+		'react-hooks/refs': 'warn',
 		'react/react-in-jsx-scope': 'off',
 		'react/prop-types': 'off',
 	} },
