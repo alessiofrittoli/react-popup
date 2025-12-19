@@ -1,6 +1,6 @@
 {
 	"name": "@alessiofrittoli/react-popup",
-	"version": "0.5.0",
+	"version": "0.5.1",
 	"description": "TypeScript React PopUp library",
 	"author": {
 		"name": "Alessio Frittoli",
