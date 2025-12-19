@@ -25,7 +25,7 @@ export namespace PopUp
 	/** A Map of PopUps indexed by PopUp.Type. */
 	export type TypedGroupsMap = TypedMap<PopUp.GroupsMap>
 
-	export type ComponentProps<P> = { id: PopUp.Id } & P
+	export type ComponentProps<P = unknown> = { id: PopUp.Id } & P
 	export type Component<P> = React.ReactNode | React.ComponentType<P>
 
 	export interface ShowHandlerOptions<U, P extends PopUp.ComponentProps<U> = PopUp.ComponentProps<U>>
