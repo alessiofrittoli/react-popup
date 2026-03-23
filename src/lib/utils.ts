@@ -6,8 +6,8 @@ import { PopUp } from '@/lib/types'
  * @param value The value to check.
  * @returns `true` if the given `value` is a {@link PopUp.Type}, `false` otherwise.
  */
-export const checkIsPopUpType = ( value: PopUp.Id | PopUp.Type ): value is PopUp.Type => (
-	Object.values( PopUp.Type ).includes( value as PopUp.Type )
+export const checkIsPopUpType = <T extends string = PopUp.Type>( value: PopUp.Id | T, types: Record<string, string> = PopUp.Type ): value is T => (
+	Object.values( types ).includes( value )
 )
 
 
@@ -20,7 +20,7 @@ export const checkIsPopUpType = ( value: PopUp.Id | PopUp.Type ): value is PopUp
  * 
  * @returns `true` if there is some PopUp in the given `groups`, `false` otherwise.
  */
-export const checkIsPopUpOpen = ( groups: PopUp.TypedGroupsMap, id: PopUp.Id, type?: PopUp.Type ) => (
+export const checkIsPopUpOpen = <T extends string = PopUp.Type>( groups: PopUp.TypedGroupsMap, id: PopUp.Id, type?: T ) => (
 	(
 		! type
 			? Array.from( groups.entries() )
