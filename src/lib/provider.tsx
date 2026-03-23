@@ -16,7 +16,7 @@ import { checkIsPopUpOpen, checkIsPopUpType } from '@/lib/utils'
  * 
  * Wrap your application with this Component to be able to use popups related functions.
  */
-export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } ) => {
+export const PopUpProvider: React.FC<React.PropsWithChildren<PopUp.ProviderProps>> = ( { types, children } ) => {
 
 	const [ groups, setGroups ] = useState( getTypedMap<PopUp.GroupsMap>() )
 
@@ -32,7 +32,7 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 
 		setGroups( groups => {
 
-			const isPopUpType = checkIsPopUpType( popupIdOrType )
+			const isPopUpType = checkIsPopUpType<PopUp.Type>( popupIdOrType, types )
 
 			/**
 			 * Do not alter state if user wants to close a specific popup with the given PopUp.Id and it is not open.
@@ -100,7 +100,7 @@ export const PopUpProvider: React.FC<React.PropsWithChildren> = ( { children } )
 			)
 		} )
 
-	}, [] )
+	}, [ types ] )
 
 
 	const openPopUp = useCallback<PopUp.OpenHandler>(

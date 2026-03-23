@@ -4,10 +4,10 @@ import { PopUpInstanceContext } from '@/internals/instance-context'
 import type { PopUp } from '@/lib/types'
 
 
-interface UsePopUpReturnType
+interface UsePopUpReturnType<T extends string = PopUp.Type>
 {
 	/** PopUp general React Context. */
-	readonly context: PopUp.Ctx
+	readonly context: PopUp.Ctx<T>
 	/** PopUp single instance React Context. */
 	readonly instance: PopUp.InstanceCtx
 }
@@ -21,7 +21,7 @@ interface UsePopUpReturnType
  * 
  * @returns An object containing the PopUp general React Context and the PopUp single instance React Context.
  */
-export const usePopUp = (): UsePopUpReturnType => {
+export const usePopUp = <T extends string = PopUp.Type>(): UsePopUpReturnType<T> => {
 
 	const context	= useContext( PopUpContext )
 	const instance	= useContext( PopUpInstanceContext )
@@ -47,5 +47,5 @@ export const usePopUp = (): UsePopUpReturnType => {
 		},
 	}
 
-	return result
+	return result as unknown as UsePopUpReturnType<T>
 }
